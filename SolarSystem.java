@@ -1,6 +1,6 @@
 /*
-* This program allows the user to enter a planet name or position and the
-* program will tell the user the corresponding planet name or position.
+* This program allows the user to enter a planet name and the program
+* will tell the user its position in the solar system.
 *
 * @author  Jacob Bonner
 * @version 1.0
@@ -9,32 +9,52 @@
 
 import java.util.Scanner;  // Import the Scanner class
 
-// enum showing Mobile prices
-enum SolarSystemPlanets {
-   Mercury(1), Venus(2), Earth(3), Mars(4), Jupiter(5),
-   Saturn(6), Uranus(7), Neptune(8);
-
-  int planetIndex;
-  SolarSystemPlanets(int enumIndex) {
-    this.planetIndex = enumIndex;
-  }
-
-  int showPlanet() {
-    return planetIndex;
-  }
-}
-
 public class SolarSystem {
-   
-  public static void main(String args[]) {
-    final SolarSystemPlanets somePlanet = SolarSystemPlanets.Mars;
-    
-    
-    System.out.println(somePlanet.planetIndex);
 
+  // Enum containing the planets in the solar syslem
+  enum SolarSystemPlanets {
+    // Planets
+    MERCURY(1), VENUS(2), EARTH(3), MARS(4), JUPITER(5),
+    SATURN(6), URANUS(7), NEPTUNE(8);
 
-    SolarSystemPlanets returnValue;
-    returnValue = SolarSystemPlanets.valueOf("Mercury"); 
-    System.out.println("Selected : " + returnValue);                   
+    // Finding the position of the planets if called
+    int planetIndex;
+    SolarSystemPlanets(int enumIndex) {
+      this.planetIndex = enumIndex;
+    }
+
+    // Returning the position of the planets
+    public int showPlanet() {
+      return planetIndex;
+    }
+  }
+
+  /**
+   * This function allows the user to enter a planet and it will
+   * tell the user the planet's position in the solar system.
+   */
+  public static void main(String[] args) {
+    try {
+      // Input to get the planet name
+      String planetInput = null;
+      Scanner userInput = new Scanner(System.in);
+      System.out.println("Enter the planet name: ");
+      String planetInputLowerCase = userInput.nextLine();
+      planetInput = planetInputLowerCase.toUpperCase();
+      System.out.println();
+
+      // Process
+      SolarSystemPlanets planetName = SolarSystemPlanets.valueOf(planetInput);
+      int planetPosition = planetName.showPlanet();
+
+      // Output
+      System.out.println("This planet is number " 
+                         + planetPosition + " in the solar system.");
+
+      // Catches and tells the user that an improper input was entered
+    } catch (Exception e) {
+      System.out.println();
+      System.out.println("ERROR: Invalid Input");
+    } 
   }
 } 
